@@ -12,29 +12,43 @@ for i in rules_list
   elem = gets.chomp
   filter_list[i] = elem
 end
+
 puts "Please choose sort option (date_added|price): "
 sort_opt = gets.chomp
 puts "Please choose sort direction(desc|asc): "
 sort_dir = gets.chomp
+
+def comp_eq(cond, li)
+  if cond == "" or di == li then true end
+end
+
+def comp_less(cond, li)
+  if cond == "" or cond.to_i <= li.to_i then true end
+end
+
+def comp_more(cond, li)
+  if cond == "" or cond.to_i <= li.to_i then true end
+end
+
 for i in data
-  if (filter_list["make"] == "" or filter_list["make"] == i["make"]) and
-    (filter_list["model"] == "" or filter_list["model"] == i["model"]) and
-    (filter_list["year_from"] == "" or filter_list["year_from"].to_i <= i["year"].to_i) and
-    (filter_list["year_to"] == "" or filter_list["year_to"].to_i >= i["year"].to_i) and
-    (filter_list["price_from"] == "" or filter_list["price_from"].to_i <= i["price"].to_i) and
-    (filter_list["price_to"] == "" or filter_list["price_to"].to_i  >= i["price"].to_i)
+  if comp_eq(filter_list["make"], i["make"]) and
+    comp_eq(filter_list["model"], i["model"]) and
+    comp_less(filter_list["year_from"], i["year"]) and
+    comp_more(filter_list["year_to"], i["year"]) and
+    comp_less(filter_list["price_from"], i["price"]) and
+    comp_more(filter_list["year_to"], i["price"])
     i["date_added"] = Date.strptime(i["date_added"], '%d/%m/%y')
     filter_result.push(i)
   end
 end
-if sort_opt != "price"
-  sort_opt = "date_added"
-end
+
+if sort_opt != "price" then sort_opt = "date_added" end
 if sort_dir == "asc"
   filter_result_sorted = filter_result.sort { |a,b| a[sort_opt] <=> b[sort_opt] }
 else
   filter_result_sorted = filter_result.sort { |a,b| b[sort_opt] <=> a[sort_opt] }
 end
+
 puts "---------------------------------------\nResults:"
 for i in filter_result_sorted
   i.each do |key, value|
