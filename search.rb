@@ -19,7 +19,7 @@ puts "Please choose sort direction(desc|asc): "
 sort_dir = gets.chomp
 
 def comp_eq(cond, li)
-  if cond == "" or di == li then true end
+  if cond == "" or cond == li then true end
 end
 
 def comp_less(cond, li)
@@ -49,10 +49,10 @@ else
   filter_result_sorted = filter_result.sort { |a,b| b[sort_opt] <=> a[sort_opt] }
 end
 
-puts "---------------------------------------\nResults:"
+puts "#{'-' * 20}\nResults: "
 for i in filter_result_sorted
   i.each do |key, value|
     puts key.to_s + ': ' + value.to_s
 end
-puts "---------------------------------------\n"
+puts "#{'-' * 20}\n"
 end
