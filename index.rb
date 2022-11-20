@@ -19,7 +19,7 @@ puts "Please choose sort direction(desc|asc): "
 sort_dir = gets.chomp
 
 def comp_eq(cond, li)
-  if cond == "" or cond == li then true end
+  if cond == "" or cond.casecmp(li) == 0 then true end
 end
 
 def comp_less(cond, li)
