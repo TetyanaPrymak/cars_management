@@ -1,58 +1,63 @@
 require 'yaml'
 require 'date'
 
-data = YAML.load(File.read('cars.yml'))
+FILE_PATH = 'cars.yml'.freeze
+cars = YAML.load(File.read(FILE_PATH))
 filter_list = {}
 filter_result = []
-rules_list = ["make", "model", "year_from", "year_to", "price_from", "price_to"]
+RULES_LIST = ["make", "model", "year_from", "year_to", "price_from", "price_to"].freeze
 
 puts "Please select search rules."
-for i in rules_list
-  puts "Please choose #{i}: "
-  elem = gets.chomp
-  filter_list[i] = elem
+RULES_LIST.each do |rule|
+  puts "Please choose #{rule}: "
+  user_input = gets.chomp
+  filter_list[rule] = user_input
 end
 
 puts "Please choose sort option (date_added|price): "
-sort_opt = gets.chomp
+sort_option = gets.chomp
 puts "Please choose sort direction(desc|asc): "
-sort_dir = gets.chomp
+sort_direction = gets.chomp
 
-def comp_eq(cond, li)
-  if cond == "" or cond.casecmp(li) == 0 then true end
+def equal?(user_input, db_value)
+  user_input.empty? || user_input.casecmp?(db_value)
 end
 
-def comp_less(cond, li)
-  if cond == "" or cond.to_i <= li.to_i then true end
+def between_then?(user_input_from, user_input_to, db_value)
+  (user_input_from.empty? || user_input_from.to_i <= db_value)&&
+  (user_input_to.empty? || user_input_to.to_i >= db_value)
 end
 
-def comp_more(cond, li)
-  if cond == "" or cond.to_i <= li.to_i then true end
+def conditions_ok?(filter_list, car)
+  equal?(filter_list["model"], car["model"]) &&
+  between_then?(filter_list["year_from"], filter_list["year_to"], car["year"]) &&
+  between_then?(filter_list["price_from"], filter_list["price_to"], car["price"])
 end
 
-for i in data
-  if comp_eq(filter_list["make"], i["make"]) and
-    comp_eq(filter_list["model"], i["model"]) and
-    comp_less(filter_list["year_from"], i["year"]) and
-    comp_more(filter_list["year_to"], i["year"]) and
-    comp_less(filter_list["price_from"], i["price"]) and
-    comp_more(filter_list["year_to"], i["price"])
-    i["date_added"] = Date.strptime(i["date_added"], '%d/%m/%y')
-    filter_result.push(i)
+cars.each do |car|
+  if conditions_ok?(filter_list, car)
+    car["date_added"] = Date.strptime(car["date_added"], '%d/%m/%y')
+    filter_result << car
   end
 end
 
-if sort_opt != "price" then sort_opt = "date_added" end
-if sort_dir == "asc"
-  filter_result_sorted = filter_result.sort { |a,b| a[sort_opt] <=> b[sort_opt] }
+BY_PRICE = 'price'.freeze
+BY_DATE_ADDED = 'date_added'.freeze
+ALLOWED_SORT_OPTIONS = [BY_PRICE, BY_DATE_ADDED].freeze
+sort_option = ALLOWED_SORT_OPTIONS.include?(sort_option) ? sort_option : BY_DATE_ADDED
+
+if sort_direction == "asc"
+  sorted_result = filter_result.sort { |a,b| a[sort_option] <=> b[sort_option] }
 else
-  filter_result_sorted = filter_result.sort { |a,b| b[sort_opt] <=> a[sort_opt] }
+  sorted_result = filter_result.sort { |a,b| b[sort_option] <=> a[sort_option] }
 end
 
-puts "#{'-' * 20}\nResults: "
-for i in filter_result_sorted
-  i.each do |key, value|
+puts '-' * 40
+puts 'Results: '
+sorted_result.each do |result|
+  result["date_added"] = result["date_added"].strftime("%d/%m/%Y")
+  result.each do |key, value|
     puts key.to_s + ': ' + value.to_s
-end
-puts "#{'-' * 20}\n"
+  end
+puts '-' * 40
 end
