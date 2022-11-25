@@ -13,6 +13,8 @@ filter_list = {}
 filter_result = []
 cars_number = 0
 
+if search_archive == false then search_archive = {} end
+
 puts "Please select search rules."
 RULES_LIST.each do |rule|
   puts "Please choose #{rule}: "
@@ -61,19 +63,13 @@ end
 
 cars_number = sorted_result.length()
 
-if search_archive == nil
-  search_archive = {}
-  search_archive [filter_list] = {Requests: 1, Total: cars_number}
-  search_number = 1
+if search_archive.has_key?(filter_list)
+  search_number = search_archive[filter_list][:Requests]
+  search_number = search_number + 1
+  search_archive[filter_list] = {Requests: search_number, Total: cars_number}
 else
-  if search_archive.has_key?(filter_list)
-    search_number = search_archive[filter_list][:Requests]
-    search_number = search_number + 1
-    search_archive[filter_list] = {Requests: search_number, Total: cars_number}
-  else
-    search_number = 1
-    search_archive.merge!({filter_list => {Requests: 1, Total: cars_number}})
-  end
+  search_number = 1
+  search_archive.merge!({filter_list => {Requests: search_number, Total: cars_number}})
 end
 
 puts '-' * 40
