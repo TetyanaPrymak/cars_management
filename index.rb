@@ -8,21 +8,19 @@ BY_DATE_ADDED = 'date_added'.freeze
 ALLOWED_SORT_OPTIONS = [BY_PRICE, BY_DATE_ADDED].freeze
 RULES_LIST = ["make", "model", "year_from", "year_to", "price_from", "price_to"].freeze
 cars = YAML.load(File.read(CARS_PATH))
-search_archive = YAML.load(File.read(SEARCHES_PATH))
+searches_archive = YAML.load(File.read(SEARCHES_PATH)) || {}
 filter_list = {}
 filter_result = []
-cars_number = 0
-
-if search_archive == false then search_archive = {} end
+cars_total = 0
 
 puts "Please select search rules."
 RULES_LIST.each do |rule|
   puts "Please choose #{rule}: "
   user_input = gets.chomp
-  if user_input.scan(/\D/).empty?
-    filter_list[rule] = user_input
-  else
+  if user_input =~ /^[A-Za-z].*/
     filter_list[rule] = user_input.capitalize!
+  else
+    filter_list[rule] = user_input
   end
 end
 
@@ -32,12 +30,12 @@ puts "Please choose sort direction(desc|asc): "
 sort_direction = gets.chomp
 
 def equal?(user_input, db_value)
-  user_input.empty? || user_input.casecmp?(db_value)
+  (user_input.empty? || user_input.casecmp?(db_value))
 end
 
 def between?(user_input_from, user_input_to, db_value)
-  (user_input_from.empty? || user_input_from.to_i <= db_value) &&
-  (user_input_to.empty? || user_input_to.to_i >= db_value)
+  (user_input_from.empty? || (user_input_from !~ /\D/ && user_input_from.to_i <= db_value)) &&
+  (user_input_to.empty? || (user_input_to !~ /\D/ && user_input_to.to_i >= db_value))
 end
 
 def car_matches?(filter_list, car)
@@ -61,21 +59,21 @@ else
   sorted_result = filter_result.sort { |a,b| b[sort_option] <=> a[sort_option] }
 end
 
-cars_number = sorted_result.length()
+cars_total = sorted_result.length()
 
-if search_archive.has_key?(filter_list)
-  search_number = search_archive[filter_list][:Requests]
+if searches_archive.has_key?(filter_list)
+  search_number = searches_archive[filter_list][:Requests]
   search_number = search_number + 1
-  search_archive[filter_list] = {Requests: search_number, Total: cars_number}
+  searches_archive[filter_list] = {Requests: search_number, Total: cars_total}
 else
   search_number = 1
-  search_archive.merge!({filter_list => {Requests: search_number, Total: cars_number}})
+  searches_archive.merge!({filter_list => {Requests: search_number, Total: cars_total}})
 end
 
 puts '-' * 40
 puts 'Statistic:'
 print 'Total Quantity: '
-puts cars_number
+puts cars_total
 print "Requests quantity: "
 puts search_number
 puts '-' * 40
@@ -87,4 +85,6 @@ sorted_result.each do |result|
   end
 puts '-' * 40
 end
-File.open("searches.yml", "w") { |file| file.write(search_archive.to_yaml) }
+if cars_total > 0
+  File.open("searches.yml", "w") { |file| file.write(searches_archive.to_yaml) }
+end
