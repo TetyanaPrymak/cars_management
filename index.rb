@@ -6,19 +6,34 @@ SEARCHES_PATH = 'searches.yml'.freeze
 BY_PRICE = 'price'.freeze
 BY_DATE_ADDED = 'date_added'.freeze
 ALLOWED_SORT_OPTIONS = [BY_PRICE, BY_DATE_ADDED].freeze
-RULES_LIST = ["make", "model", "year_from", "year_to", "price_from", "price_to"].freeze
+RULES_LIST_TEXT = ["make", "model"].freeze
+RULES_LIST_NUMBER = ["year_from", "year_to", "price_from", "price_to"].freeze
 cars = YAML.load(File.read(CARS_PATH))
 searches_archive = YAML.load(File.read(SEARCHES_PATH)) || {}
 filter_list = {}
 filter_result = []
 cars_total = 0
 
+def text_input?(user_input)
+  user_input !~ /\D/
+end
+
+def can_capitalize?(user_input)
+  user_input =~ /^[A-Za-z].*/
+end
+
 puts "Please select search rules."
-RULES_LIST.each do |rule|
+RULES_LIST_TEXT.each do |rule|
   puts "Please choose #{rule}: "
   user_input = gets.chomp
-  if user_input =~ /^[A-Za-z].*/
-    filter_list[rule] = user_input.capitalize!
+  filter_list[rule] = user_input
+end
+
+RULES_LIST_NUMBER.each do |rule|
+  puts "Please choose #{rule}: "
+  user_input = gets.chomp
+  if text_input?(user_input)
+    filter_list[rule] = ""
   else
     filter_list[rule] = user_input
   end
@@ -34,8 +49,8 @@ def equal?(user_input, db_value)
 end
 
 def between?(user_input_from, user_input_to, db_value)
-  (user_input_from.empty? || (user_input_from !~ /\D/ && user_input_from.to_i <= db_value)) &&
-  (user_input_to.empty? || (user_input_to !~ /\D/ && user_input_to.to_i >= db_value))
+  (user_input_from.empty? || user_input_from.to_i <= db_value) &&
+  (user_input_to.empty? || user_input_to.to_i >= db_value)
 end
 
 def car_matches?(filter_list, car)
@@ -48,6 +63,12 @@ end
 cars.each do |car|
   next unless car_matches?(filter_list, car)
   car["date_added"] = Date.strptime(car["date_added"], '%d/%m/%y')
+  if can_capitalize?(car["make"])
+    car["make"] = car["make"].capitalize!
+  end
+  if can_capitalize?(car["model"])
+    car["model"] = car["model"].capitalize!
+  end
   filter_result << car
 end
 
@@ -85,6 +106,4 @@ sorted_result.each do |result|
   end
 puts '-' * 40
 end
-if cars_total > 0
-  File.open("searches.yml", "w") { |file| file.write(searches_archive.to_yaml) }
-end
+File.open("searches.yml", "w") { |file| file.write(searches_archive.to_yaml) }
