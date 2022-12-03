@@ -11,28 +11,20 @@ BY_DATE_ADDED = 'date_added'.freeze
 DIRECTION = 'desc'.freeze
 RULES_LIST_TEXT = ["make", "model"].freeze
 RULES_LIST_NUMBER = ["year_from", "year_to", "price_from", "price_to"].freeze
-LANG_LIST = ['en', 'ua', 'de']
+LANG_LIST = ['en', 'ua'].freeze
+DEFAULT_LANGUAGE = :en.freeze
 cars = YAML.load(File.read(CARS_PATH))
 searches_archive = YAML.load(File.read(SEARCHES_PATH)) || {}
 filter_list = {}
 filter_result = []
 cars_total = 0
 
-puts "Please choose language (en | ua | de ): "
+puts "Please choose language (en | ua): "
 user_lang = gets.chomp
 I18n.load_path += Dir[File.expand_path("config/locales") + "/*.yml"]
 I18n.default_locale = :en
 
-case user_lang
-when "en"
-  I18n.locale = :en
-when "de"
-  I18n.locale = :de
-when "ua"
-  I18n.locale = :ua
-else
-  I18n.locale = :en
-end
+I18n.locale = LANG_LIST.include?(user_lang) ? user_lang.to_sym : DEFAULT_LANGUAGE
 
 def text_input?(user_input)
   user_input =~ /\D/
@@ -42,17 +34,23 @@ def can_capitalize?(user_input)
   user_input =~ /^[A-Za-z].*/
 end
 
-puts I18n.t(:invitation)
+def print_message(key)
+  puts I18n.t(key)
+end
+
+puts print_message(:invitation)
 RULES_LIST_TEXT.each do |rule|
   rule_localized = I18n.t(rule)
-  puts I18n.t(:option_request) + " #{rule_localized}: "
+  print_message(:option_request)
+  print " #{rule_localized}: "
   user_input = gets.chomp
   filter_list[rule] = user_input
 end
 
 RULES_LIST_NUMBER.each do |rule|
   rule_localized = I18n.t(rule)
-  puts I18n.t(:option_request) + " #{rule_localized}: "
+  print_message(:option_request)
+  print " #{rule_localized}: "
   user_input = gets.chomp
   if text_input?(user_input)
     filter_list[rule] = ""
@@ -63,19 +61,11 @@ end
 
 puts I18n.t(:sorting_request)
 sort_option = gets.chomp
-if sort_option == I18n.t(:price)
-  sort_option = BY_PRICE
-else
-  sort_option = BY_DATE_ADDED
-end
+sort_option = sort_option == I18n.t(:price) ? BY_PRICE : BY_DATE_ADDED
 
-puts I18n.t(:direction_request)
+print_message(:direction_request)
 sort_direction = gets.chomp
-if sort_direction == I18n.t(:direction)
-  sort_direction = 'asc'
-else
-  sort_direction = DIRECTION
-end
+sort_direction = sort_direction == I18n.t(:direction) ? 'asc' : DIRECTION
 
 def equal?(user_input, db_value)
   (user_input.empty? || user_input.casecmp?(db_value))
@@ -114,19 +104,23 @@ end
 cars_total = sorted_result.length()
 
 rows = []
-table = Terminal::Table.new :title => I18n.t(:SEARCH_RESULTS).colorize(:light_blue),
-:headings => [I18n.t(:INDEX).colorize(:yellow), I18n.t(:VALUE).colorize(:yellow)] do |t|
-  sorted_result.each do |car|
-    car.each do |key, value|
-      rows = [key, value]
-      t.add_row rows
-      t.style = {:border_bottom => false, :padding_left => 3, :border_x => "=", :border_i => "x"}
+
+def print_table(table_data)
+  table = Terminal::Table.new :title => I18n.t(:SEARCH_RESULTS).colorize(:light_blue),
+  :headings => [I18n.t(:INDEX).colorize(:yellow), I18n.t(:VALUE).colorize(:yellow)] do |t|
+    table_data.each do |car|
+      car.each do |key, value|
+        rows = [key, value]
+        t.add_row rows
+        t.style = {:border_bottom => false, :padding_left => 3, :border_x => "=", :border_i => "x"}
+      end
+      t << :separator
     end
-    t << :separator
   end
+  puts table
 end
 
-puts table
+print_table(sorted_result)
 
 if searches_archive.has_key?(filter_list)
   search_number = searches_archive[filter_list][:Requests]
