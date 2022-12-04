@@ -1,36 +1,56 @@
 require 'yaml'
 require 'date'
+require 'terminal-table'
+require 'i18n'
+require 'colorize'
 
 CARS_PATH = 'cars.yml'.freeze
 SEARCHES_PATH = 'searches.yml'.freeze
 BY_PRICE = 'price'.freeze
 BY_DATE_ADDED = 'date_added'.freeze
-ALLOWED_SORT_OPTIONS = [BY_PRICE, BY_DATE_ADDED].freeze
+DIRECTION = 'desc'.freeze
 RULES_LIST_TEXT = ["make", "model"].freeze
 RULES_LIST_NUMBER = ["year_from", "year_to", "price_from", "price_to"].freeze
+LANG_LIST = ['en', 'ua'].freeze
+DEFAULT_LANGUAGE = :en.freeze
 cars = YAML.load(File.read(CARS_PATH))
 searches_archive = YAML.load(File.read(SEARCHES_PATH)) || {}
 filter_list = {}
 filter_result = []
 cars_total = 0
 
+puts "Please choose language (en | ua): "
+user_lang = gets.chomp
+I18n.load_path += Dir[File.expand_path("config/locales") + "/*.yml"]
+I18n.default_locale = :en
+
+I18n.locale = LANG_LIST.include?(user_lang) ? user_lang.to_sym : DEFAULT_LANGUAGE
+
 def text_input?(user_input)
-  user_input !~ /\D/
+  user_input =~ /\D/
 end
 
 def can_capitalize?(user_input)
   user_input =~ /^[A-Za-z].*/
 end
 
-puts "Please select search rules."
+def print_message(key)
+  puts I18n.t(key)
+end
+
+puts print_message(:invitation)
 RULES_LIST_TEXT.each do |rule|
-  puts "Please choose #{rule}: "
+  rule_localized = I18n.t(rule)
+  print_message(:option_request)
+  print " #{rule_localized}: "
   user_input = gets.chomp
   filter_list[rule] = user_input
 end
 
 RULES_LIST_NUMBER.each do |rule|
-  puts "Please choose #{rule}: "
+  rule_localized = I18n.t(rule)
+  print_message(:option_request)
+  print " #{rule_localized}: "
   user_input = gets.chomp
   if text_input?(user_input)
     filter_list[rule] = ""
@@ -39,10 +59,13 @@ RULES_LIST_NUMBER.each do |rule|
   end
 end
 
-puts "Please choose sort option (date_added|price): "
+puts I18n.t(:sorting_request)
 sort_option = gets.chomp
-puts "Please choose sort direction(desc|asc): "
+sort_option = sort_option == I18n.t(:price) ? BY_PRICE : BY_DATE_ADDED
+
+print_message(:direction_request)
 sort_direction = gets.chomp
+sort_direction = sort_direction == I18n.t(:direction) ? 'asc' : DIRECTION
 
 def equal?(user_input, db_value)
   (user_input.empty? || user_input.casecmp?(db_value))
@@ -64,15 +87,13 @@ cars.each do |car|
   next unless car_matches?(filter_list, car)
   car["date_added"] = Date.strptime(car["date_added"], '%d/%m/%y')
   if can_capitalize?(car["make"])
-    car["make"] = car["make"].capitalize!
+    car["make"].capitalize!
   end
   if can_capitalize?(car["model"])
-    car["model"] = car["model"].capitalize!
+    car["model"].capitalize!
   end
   filter_result << car
 end
-
-sort_option = ALLOWED_SORT_OPTIONS.include?(sort_option) ? sort_option : BY_DATE_ADDED
 
 if sort_direction == "asc"
   sorted_result = filter_result.sort { |a,b| a[sort_option] <=> b[sort_option] }
@@ -81,6 +102,25 @@ else
 end
 
 cars_total = sorted_result.length()
+
+rows = []
+
+def print_table(table_data)
+  table = Terminal::Table.new :title => I18n.t(:SEARCH_RESULTS).colorize(:light_blue),
+  :headings => [I18n.t(:INDEX).colorize(:yellow), I18n.t(:VALUE).colorize(:yellow)] do |t|
+    table_data.each do |car|
+      car.each do |key, value|
+        rows = [key, value]
+        t.add_row rows
+        t.style = {:border_bottom => false, :padding_left => 3, :border_x => "=", :border_i => "x"}
+      end
+      t << :separator
+    end
+  end
+  puts table
+end
+
+print_table(sorted_result)
 
 if searches_archive.has_key?(filter_list)
   search_number = searches_archive[filter_list][:Requests]
@@ -91,19 +131,4 @@ else
   searches_archive.merge!({filter_list => {Requests: search_number, Total: cars_total}})
 end
 
-puts '-' * 40
-puts 'Statistic:'
-print 'Total Quantity: '
-puts cars_total
-print "Requests quantity: "
-puts search_number
-puts '-' * 40
-puts 'Results: '
-sorted_result.each do |result|
-  result["date_added"] = result["date_added"].strftime("%d/%m/%Y")
-  result.each do |key, value|
-    puts key.to_s + ': ' + value.to_s
-  end
-puts '-' * 40
-end
 File.open("searches.yml", "w") { |file| file.write(searches_archive.to_yaml) }
