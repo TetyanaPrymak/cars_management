@@ -53,11 +53,7 @@ RULES_LIST_NUMBER.each do |rule|
   print_message(:option_request)
   print " #{rule_localized}: "
   user_input = gets.chomp
-  filter_list[rule] = if text_input?(user_input)
-                        ''
-                      else
-                        user_input
-                      end
+  filter_list[rule] = text_input?(user_input) ? '' : user_input  
 end
 
 puts I18n.t(:sorting_request)
@@ -94,9 +90,9 @@ cars.each do |car|
 end
 
 sorted_result = if sort_direction == 'asc'
-                  filter_result.sort_by! { |k| k[sort_option] }
+                  filter_result.sort! { |car1,car2| car1[sort_option] <=> car2[sort_option] }
                 else
-                  filter_result.sort_by! { |k| k[sort_option] }.reverse!
+                  filter_result.sort! { |car1,car2| car2[sort_option] <=> car1[sort_option] }
                 end
 
 cars_total = sorted_result.length
