@@ -21,7 +21,7 @@ def help_assistant
   puts I18n.t(:help)
 end
 
-while menu_item.to_i == 3
+while menu_item.to_i != 4
   menu_table = Terminal::Table.new headings: [I18n.t(:menu_head1), I18n.t(:menu_head2)], title: I18n.t(:menu_title),
                                    rows: I18n.t(:menu_items), style: { width: 80, padding_left: 3, border_x: '=',
                                                                        border_i: 'x', all_separators: true }
