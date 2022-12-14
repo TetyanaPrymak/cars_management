@@ -6,20 +6,8 @@ require 'terminal-table'
 require 'i18n'
 require 'colorize'
 
-CARS_PATH = 'cars.yml'
-SEARCHES_PATH = 'searches.yml'
-BY_PRICE = 'price'
-BY_DATE_ADDED = 'date_added'
-DIRECTION = 'desc'
-RULES_MAKE_MODEL = %w[make model].freeze
-RULES_YEAR = %w[year_from year_to].freeze
-RULES_PRICE = %w[price_from price_to].freeze
 cars_db = YAML.safe_load(File.read(CARS_PATH), permitted_classes: [Symbol])
 searches_archive = YAML.safe_load(File.read(SEARCHES_PATH), permitted_classes: [Symbol]) || {}
-
-def print_message(key)
-  puts I18n.t(key)
-end
 
 puts print_message(:invitation)
 

@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 require 'yaml'
 require 'terminal-table'
 require 'i18n'
 require 'colorize'
 
-CARS_PATH = 'cars.yml'.freeze
 cars_db = YAML.safe_load(File.read(CARS_PATH), permitted_classes: [Symbol])
 
 table_title = I18n.t(:SEARCH_RESULTS).colorize(:light_blue)
