@@ -16,8 +16,6 @@ DIRECTION = 'desc'
 RULES_MAKE_MODEL = %w[make model].freeze
 RULES_YEAR = %w[year_from year_to].freeze
 RULES_PRICE = %w[price_from price_to].freeze
-cars_db = YAML.safe_load(File.read(CARS_PATH), permitted_classes: [Symbol])
-searches_archive = YAML.safe_load(File.read(SEARCHES_PATH), permitted_classes: [Symbol]) || {}
 menu_item = 3
 
 I18n.load_path += Dir["#{File.expand_path('config/locales')}/*.yml"]
@@ -29,22 +27,42 @@ end
 
 print_message(:welcome)
 user_lang = gets.chomp
-
 I18n.locale = LANG_LIST.include?(user_lang) ? user_lang.to_sym : DEFAULT_LANGUAGE
 
+class ConsolePrint
+  attr_accessor :data, :table_title, :table_heading
+
+  def initialize(data, table_title, table_heading)
+    @data = data
+    @table_title = table_title
+    @table_heading = table_heading
+  end
+
+  def printing_to_console
+    Terminal::Table.new title: @table_title, headings: @table_heading do |t|
+      @data.each do |car|
+        car.each do |key, value|
+          rows = [key, value]
+          t.add_row rows
+          t.style = { width: 80, border_bottom: false, padding_left: 3, border_x: '=', border_i: 'x' }
+        end
+        t << :separator
+      end
+    end
+  end
+end
+
 while menu_item.to_i != 4
-  menu_table = Terminal::Table.new headings: [I18n.t(:menu_head1), I18n.t(:menu_head2)], title: I18n.t(:menu_title),
-                                   rows: I18n.t(:menu_items), style: { width: 80, padding_left: 3, border_x: '=',
-                                                                       border_i: 'x', all_separators: true }
-  puts menu_table
+  menu_table = ConsolePrint.new(I18n.t(:menu_items), I18n.t(:menu_title), [I18n.t(:menu_head1), I18n.t(:menu_head2)])
+  puts menu_table.printing_to_console
   print_message(:menu_start)
   menu_item = gets.chomp
 
   case
   when menu_item.to_i == 1
-    load 'cars/car_search.rb'
+    load 'searches/car_search.rb'
   when menu_item.to_i == 2
-    load 'cars/all_cars.rb'
+    load 'searches/all_cars.rb'
   when menu_item.to_i == 3
     print_message(:help)
   when menu_item.to_i == 4
