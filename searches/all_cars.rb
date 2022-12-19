@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
-require 'yaml'
-require 'terminal-table'
-require 'i18n'
-require 'colorize'
 require_relative '../menu_option'
-require_relative '../userlang'
+require_relative '../user_lang'
+require_relative '../yaml_load'
 
 class AllCars < MenuOption
   def run
