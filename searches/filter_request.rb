@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class FilterRequest
-  attr_accessor :make, :model, :year_from, :year_to, :price_from, :price_to, :sort_option, :sort_direction
+  include MessagePrinter
+  attr_accessor :make, :model, :year_from, :year_to, :price_from, :price_to, :sort_option, :sort_direction, :cars_total
 
   BY_PRICE = 'price'
   BY_DATE_ADDED = 'date_added'

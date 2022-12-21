@@ -19,6 +19,11 @@ en:
   option_request: "Please choose an indicator for search -"
   sorting_request: "Please choose sort option (date_added|price): "
   direction_request: "Please choose sort direction(desc|asc): "
+  email_request: 'Please enter your email: '
+  password_request: 'Please enter your password: '
+  email_error: 'Please enter valid email'
+  password_error: 'Please enter valid password - at least 1 capital letter, at least 2 special characters,
+                   should have at least 8 symbols and no more than 20 symbols'
   SEARCH_RESULTS: "SEARCH RESULTS"
   INDEX: "Index"
   VALUE: "Value"

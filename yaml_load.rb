@@ -3,9 +3,6 @@
 require 'yaml'
 require 'i18n'
 
-CARS_PATH = 'cars.yml'
-SEARCHES_PATH = 'searches.yml'
-
 class YamlLoad
   attr_reader :path, :data
 

@@ -18,6 +18,8 @@ class UserLang
   end
 end
 
-def print_message(key)
-  puts I18n.t(key)
+module MessagePrinter
+  def print_message(key)
+    puts I18n.t(key)
+  end
 end

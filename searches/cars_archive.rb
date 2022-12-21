@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../menu_option'
 require_relative '../user_lang'
 require_relative '../yaml_load'
 
@@ -13,7 +12,7 @@ class CarsArchive
     @cars_total = cars_total
   end
 
-  def write_to_archive
+  def call
     if @searches_archive.key?(@search)
       search_number = @searches_archive[@search][:Requests]
       search_number += 1

@@ -4,7 +4,6 @@ require 'terminal-table'
 require_relative 'searches/all_cars'
 require_relative 'searches/filter_request'
 require_relative 'searches/car_search'
-require_relative 'menu_option'
 require_relative 'user_lang'
 
 class ConsolePrint
@@ -16,10 +15,10 @@ class ConsolePrint
     @table_heading = table_heading
   end
 
-  def printing_to_console
+  def call
     Terminal::Table.new title: @table_title, headings: @table_heading do |t|
-      @data.each do |car|
-        car.each do |key, value|
+      @data.each do |item|
+        item.each do |key, value|
           rows = [key, value]
           t.add_row rows
           t.style = { width: 80, border_bottom: false, padding_left: 3, border_x: '=', border_i: 'x' }
