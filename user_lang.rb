@@ -17,9 +17,3 @@ class UserLang
     @user_lang = I18n.locale
   end
 end
-
-module MessagePrinter
-  def print_message(key)
-    puts I18n.t(key)
-  end
-end

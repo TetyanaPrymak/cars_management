@@ -17,8 +17,8 @@ en:
   exit: Thank you! See you soon!
   invitation: "Please select search rules."
   option_request: "Please choose an indicator for search -"
-  sorting_request: "Please choose sort option (date_added|price): "
-  direction_request: "Please choose sort direction(desc|asc): "
+  sorting_request: "sort option (date_added|price)"
+  direction_request: "sort direction(desc|asc)"
   email_request: 'Please enter your email: '
   password_request: 'Please enter your password: '
   email_error: 'Please enter valid email'

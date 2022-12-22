@@ -1,6 +1,21 @@
 # frozen_string_literal: true
 
 class CarFilter < FilterRequest
+  attr_accessor :make, :model, :year_from, :year_to, :price_from, :price_to
+
+  RULES_MAKE_MODEL = %w[make model].freeze
+  RULES_YEAR = %w[year_from year_to].freeze
+  RULES_PRICE = %w[price_from price_to].freeze
+
+  def initialize
+    @make = make
+    @model = model
+    @year_from = year_from
+    @year_to = year_to
+    @price_from = price_from
+    @price_to = price_to
+  end
+
   def equal?(user_input, db_value)
     (user_input.empty? || user_input.casecmp?(db_value))
   end

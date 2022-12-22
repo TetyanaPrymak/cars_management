@@ -6,9 +6,7 @@ require_relative 'searches/filter_request'
 require_relative 'searches/car_search'
 require_relative 'user_lang'
 
-class ConsolePrint
-  attr_accessor :data, :table_title, :table_heading
-
+class PrepareConsoleOutput
   def initialize(data, table_title, table_heading)
     @data = data
     @table_title = table_title
