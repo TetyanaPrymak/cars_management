@@ -13,7 +13,10 @@ en:
   menu_head1: 'Action'
   menu_head2: 'Please enter'
   menu_title: 'M E N U'
-  menu_items: [{'Search a car':1}, {'Show all cars':2}, {'Help':3}, {'Exit':4}]
+  menu_items_in: [{'Search a car':1}, {'Show all cars':2}, {'Help':3}, {'Exit':4},
+               {'Sign in':5}, {'Sign up':6}]
+  menu_items_out: [{'Search a car':1}, {'Show all cars':2}, {'Help':3}, {'Exit':4},
+               {'Sign out':5}, {'My searches':6}]
   exit: Thank you! See you soon!
   invitation: "Please select search rules."
   option_request: "Please choose an indicator for search -"
@@ -21,9 +24,17 @@ en:
   direction_request: "sort direction(desc|asc)"
   email_request: 'Please enter your email: '
   password_request: 'Please enter your password: '
-  email_error: 'Please enter valid email'
+  email: email
+  password: password
+  email_error: 'Please enter valid email!'
   password_error: 'Please enter valid password - at least 1 capital letter, at least 2 special characters,
                    should have at least 8 symbols and no more than 20 symbols'
+  unique_error: 'This password already signed up. Please sign in!'
+  signup_error: 'Please try again!'
+  signin_error: 'Please try again!'
+  password_mismatch: 'You password does not match. Please try again!'
+  email_mismatch: 'This email is not yet registered. Please register!'
+  hello: 'Hello, '
   SEARCH_RESULTS: "SEARCH RESULTS"
   INDEX: "Index"
   VALUE: "Value"
