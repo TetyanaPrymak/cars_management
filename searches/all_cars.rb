@@ -1,0 +1,25 @@
+# frozen_string_literal: true
+
+require_relative '../user_lang'
+require_relative '../yaml_load'
+require_relative '../message_printer'
+
+class AllCars
+  include MessagePrinter
+  CARS_PATH = 'cars.yml'
+  def call
+    cars_db = YamlLoad.new(CARS_PATH).data
+    cars_db.each do |car_db|
+      car_db['date_added'] = Date.strptime(car_db['date_added'], '%d/%m/%y')
+    end
+    car_print = PrepareConsoleOutput.new(
+      cars_db,
+      I18n.t(:SEARCH_RESULTS).colorize(:light_blue),
+      [
+        I18n.t(:INDEX).colorize(:yellow),
+        I18n.t(:VALUE).colorize(:yellow)
+      ]
+    )
+    puts car_print.call
+  end
+end

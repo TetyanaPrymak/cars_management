@@ -7,10 +7,23 @@ en:
   price_to: "price to"
   price: "price"
   direction: "asc"
+  welcome: 'Please choose language (en | ua) / Виберіть мову (en | ua): '
+  menu_start: 'Please choose necessary action from menu: '
+  help: 'Help: Please choose one of the menu items by entering 1, 2, 3 or 4 for the corresponding actions'
+  menu_head1: 'Action'
+  menu_head2: 'Please enter'
+  menu_title: 'M E N U'
+  menu_items: [{'Search a car':1}, {'Show all cars':2}, {'Help':3}, {'Exit':4}]
+  exit: Thank you! See you soon!
   invitation: "Please select search rules."
-  option_request: "Please choose "
-  sorting_request: "Please choose sort option (date_added|price): "
-  direction_request: "Please choose sort direction(desc|asc): "
+  option_request: "Please choose an indicator for search -"
+  sorting_request: "sort option (date_added|price)"
+  direction_request: "sort direction(desc|asc)"
+  email_request: 'Please enter your email: '
+  password_request: 'Please enter your password: '
+  email_error: 'Please enter valid email'
+  password_error: 'Please enter valid password - at least 1 capital letter, at least 2 special characters,
+                   should have at least 8 symbols and no more than 20 symbols'
   SEARCH_RESULTS: "SEARCH RESULTS"
   INDEX: "Index"
   VALUE: "Value"
