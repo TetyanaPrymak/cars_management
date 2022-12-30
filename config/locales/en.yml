@@ -29,10 +29,12 @@ en:
   email_error: 'Please enter valid email!'
   password_error: 'Please enter valid password - at least 1 capital letter, at least 2 special characters,
                    should have at least 8 symbols and no more than 20 symbols'
-  unique_error: 'This password already signed up. Please sign in!'
+  unique_error: 'This email already signed up. Please sign in!'
   signup_error: 'Please try again!'
   signin_error: 'Please try again!'
-  password_mismatch: 'You password does not match. Please try again!'
+  exit_for_user: 'See you later!'
+  zero_searches: 'You do not have searches yet!'
+  password_mismatch: 'Your email and password do not match. Please try again!'
   email_mismatch: 'This email is not yet registered. Please register!'
   hello: 'Hello, '
   SEARCH_RESULTS: "SEARCH RESULTS"

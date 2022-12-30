@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 require 'bcrypt'
 require 'yaml'
 require 'i18n'
