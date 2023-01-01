@@ -67,7 +67,7 @@ class UserSignup
       print_message(:hello)
       puts "#{@email}!"
       password_bycript = BCrypt::Password.create(@password)
-      user = { email: @email, password: password_bycript }
+      user = { email: @email, password: password_bycript.to_s }
       @users_db.push(user)
       File.open(USERS_PATH, 'w') { |file| file.write(@users_db.to_yaml) }
     end

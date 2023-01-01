@@ -34,7 +34,7 @@ en:
   signin_error: 'Please try again!'
   exit_for_user: 'See you later!'
   zero_searches: 'You do not have searches yet!'
-  password_mismatch: 'Your email and password do not match. Please try again!'
+  password_mismatch: 'Your email or password do not match. Please try again!'
   email_mismatch: 'This email is not yet registered. Please register!'
   hello: 'Hello, '
   SEARCH_RESULTS: "SEARCH RESULTS"

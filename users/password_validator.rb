@@ -10,7 +10,7 @@ class PasswordValidator
   USERS_PATH = 'users/users.yml'
 
   def initialize
-    @users_db = YamlLoad.new(USERS_PATH).data || []
+    @users_db = YamlLoad.new(USERS_PATH).data
   end
 
   def password_validated?(password_input)
@@ -21,10 +21,13 @@ class PasswordValidator
     found = users_db.find_index { |user_db| user_db.value?(email) }
     if found.nil?
       return false
-    elsif users_db[found][:password] == password
-      return true
     else
-      return false
+      password_db = users_db[found][:password]
+      if BCrypt::Password.new(password_db) == password
+        return true
+      else
+        return false
+      end
     end
   end
 end

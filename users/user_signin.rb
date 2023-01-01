@@ -50,10 +50,7 @@ class UserSignin
   end
 
   def match_email_password
-    if @password_verified == false && @email_verified == true
-      print_message(:password_error)
-      @signed = false
-    elsif @password_validator.password_matches?(@email, @password)
+    if @password_validator.password_matches?(@email, @password)
       @signed = true
       puts I18n.t(:hello)
       puts "#{@email}!"
