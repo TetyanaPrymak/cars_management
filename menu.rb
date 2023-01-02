@@ -6,11 +6,12 @@ require_relative 'searches/all_cars'
 require_relative 'searches/car_search'
 require_relative 'users/user_signup'
 require_relative 'users/user_signin'
+require_relative 'users/user_search'
 require_relative 'menu_printer'
 
 class Menu
   include MessagePrinter
-  attr_accessor :menu_item, :menu_items, :user_signin, :signed, :user_menu
+  attr_accessor :menu_item, :menu_items, :user_signin, :signed, :email
 
   MENUINPUTS = [1, 2, 3, 4, 5, 6].freeze
 
@@ -24,7 +25,8 @@ class Menu
     @menu_item = gets.chomp.to_i
     case
     when @menu_item == MENUINPUTS[0]
-      CarSearch.new.call
+      @email = @signed ? @email : 'not_signed'
+      CarSearch.new(@email).call
     when @menu_item == MENUINPUTS[1]
       AllCars.new.call
     when @menu_item == MENUINPUTS[2]
@@ -32,18 +34,34 @@ class Menu
     when @menu_item == MENUINPUTS[3]
       print_message(:exit)
     when @menu_item == MENUINPUTS[4]
-      if @signed == false
-        @user_signin = UserSignin.new
-        @user_signin.call
-        @signed = @user_signin.signed
-      else
-        print_message(:exit_for_user)
-        @signed = false
-      end
+      menu_in_out
     when @menu_item == MENUINPUTS[5]
+      menu_up_mysearches
+    else @menu_item = MENUINPUTS[2] end
+  end
+
+  def menu_in_out
+    if @signed == false
+      @user_signin = UserSignin.new
+      @user_signin.call
+      @signed = @user_signin.signed
+      @email = @user_signin.email
+    else
+      print_message(:exit_for_user)
+      @signed = false
+    end
+  end
+
+  def menu_up_mysearches
+    if @signed == false
       @user_signup = UserSignup.new
       @user_signup.call
       @signed = @user_signup.signed
-    else @menu_item = MENUINPUTS[2] end
+      @email = @user_signup.email
+    else
+      @user_search = UserSearch.new(@email)
+      @user_search.find_user
+      @user_search.call
+    end
   end
 end

@@ -7,13 +7,14 @@ class CarFilter < FilterRequest
   RULES_YEAR = %w[year_from year_to].freeze
   RULES_PRICE = %w[price_from price_to].freeze
 
-  def initialize
+  def initialize(email)
     @make = make
     @model = model
     @year_from = year_from
     @year_to = year_to
     @price_from = price_from
     @price_to = price_to
+    @email = email
   end
 
   def equal?(user_input, db_value)

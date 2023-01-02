@@ -8,7 +8,7 @@ require_relative 'cars_archive'
 
 class CarSearch
   include MessagePrinter
-  attr_accessor :car_filter, :car_sort, :sorted_result, :cars_db
+  attr_accessor :car_filter, :car_sort, :sorted_result, :cars_db, :email
 
   CARS_PATH = 'cars.yml'
   SEARCHES_PATH = 'searches.yml'
@@ -17,8 +17,9 @@ class CarSearch
   RULES_PRICE = %w[price_from price_to].freeze
   RULES_SORT = %w[sorting_request direction_request].freeze
 
-  def initialize
-    @car_filter = CarFilter.new
+  def initialize(email)
+    @email = email
+    @car_filter = CarFilter.new(@email)
     @car_sort = CarSort.new
     @cars_db = YamlLoad.new(CARS_PATH).data
   end
@@ -73,8 +74,12 @@ class CarSearch
   def put_to_archive
     searches_archive = YamlLoad.new(SEARCHES_PATH).data
 
-    cars_archive = CarsArchive.new(car_filter.to_archive, searches_archive, cars_db.length)
-    cars_archive.call
+    cars_archive = CarsArchive.new(car_filter.to_archive, searches_archive, cars_db.length, @email)
+    if @email.nil? || @email == 'not_signed'
+      cars_archive.call_no_user
+    else
+      cars_archive.call_with_user(@email)
+    end
 
     File.open('searches.yml', 'w') { |file| file.write(searches_archive.to_yaml) }
   end

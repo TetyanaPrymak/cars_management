@@ -5,5 +5,94 @@
   :year_to: ''
   :price_from: ''
   :price_to: ''
-: :Requests: 2
+: :Requests: 16
   :Total: 14
+  :Search_users:
+  - popopo@po.po
+  - aaaaa@aa.aa
+  - ooooo@oo.oo
+? :make: Ford
+  :model: ''
+  :year_from: ''
+  :year_to: ''
+  :price_from: ''
+  :price_to: ''
+: :Requests: 7
+  :Total: 2
+  :Search_users:
+  - aaaaa@aa.aa
+  - popopo@po.po
+? :make: ''
+  :model: Volt
+  :year_from: ''
+  :year_to: ''
+  :price_from: ''
+  :price_to: ''
+: :Requests: 1
+  :Total: 1
+  :Search_users: []
+? :make: ''
+  :model: ''
+  :year_from: '2018'
+  :year_to: ''
+  :price_from: ''
+  :price_to: ''
+: :Requests: 1
+  :Total: 1
+  :Search_users: []
+? :make: ''
+  :model: ''
+  :year_from: ''
+  :year_to: ''
+  :price_from: '15000'
+  :price_to: ''
+: :Requests: 1
+  :Total: 6
+  :Search_users: []
+? :make: ''
+  :model: ''
+  :year_from: ''
+  :year_to: '2015'
+  :price_from: ''
+  :price_to: ''
+: :Requests: 2
+  :Total: 10
+  :Search_users:
+  - popopo@po.po
+? :make: Bmw
+  :model: ''
+  :year_from: ''
+  :year_to: ''
+  :price_from: ''
+  :price_to: ''
+: :Requests: 2
+  :Total: 2
+  :Search_users: []
+? :make: Audi
+  :model: ''
+  :year_from: ''
+  :year_to: ''
+  :price_from: ''
+  :price_to: ''
+: :Requests: 2
+  :Total: 2
+  :Search_users: []
+? :make: ''
+  :model: ''
+  :year_from: ''
+  :year_to: '2014'
+  :price_from: ''
+  :price_to: ''
+: :Requests: 1
+  :Total: 9
+  :Search_users: []
+? :make: ''
+  :model: ''
+  :year_from: ''
+  :year_to: '2012'
+  :price_from: ''
+  :price_to: ''
+: :Requests: 2
+  :Total: 5
+  :Search_users:
+  - popopo@po.po
