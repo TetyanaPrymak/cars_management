@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'user_input'
+require_relative '../user_input'
 
 class FilterRequest < UserInput
   include MessagePrinter

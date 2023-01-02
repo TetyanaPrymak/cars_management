@@ -1,33 +1,9 @@
 ---
-? :make: Ford
+? :make: ''
   :model: ''
   :year_from: ''
   :year_to: ''
   :price_from: ''
   :price_to: ''
 : :Requests: 2
-  :Total: 2
-? :make: 234sdf
-  :model: ''
-  :year_from: ''
-  :year_to: ''
-  :price_from: ''
-  :price_to: ''
-: :Requests: 1
-  :Total: 0
-? :make: ''
-  :model: Volt
-  :year_from: ''
-  :year_to: ''
-  :price_from: ''
-  :price_to: ''
-: :Requests: 1
-  :Total: 1
-? :make: ''
-  :model: ''
-  :year_from: ''
-  :year_to: ''
-  :price_from: ''
-  :price_to: ''
-: :Requests: 1
   :Total: 14

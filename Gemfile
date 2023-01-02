@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 
 # gem "rails"
-
+gem 'bcrypt-ruby'
 gem 'brakeman', '~> 3.3', '>= 3.3.2'
 gem 'bundler-audit', require: false
 gem 'bundler-leak', '~> 0.2.0'
