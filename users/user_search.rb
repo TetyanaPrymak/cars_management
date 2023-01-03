@@ -8,19 +8,21 @@ require_relative '../searches/car_search'
 
 class UserSearch
   include MessagePrinter
-  attr_accessor :searches_archive, :email, :user_my_searches
+  attr_accessor :user_searches, :email, :user_my_searches
 
-  SEARCHES_PATH = 'searches.yml'
+  USERS_SEARCHES_PATH = 'user_searches.yml'
 
   def initialize(email)
     @email = email
-    @searches_archive = YamlLoad.new(SEARCHES_PATH).data
+    @users_searches = YamlLoad.new(USERS_SEARCHES_PATH).data
   end
 
   def find_user
-    user_results = searches_archive.keep_if { |key, value| value[:Search_users].include?(@email) }
-    @user_my_searches = []
-    @user_my_searches = user_results.keys
+    if @users_searches.key?(@email)
+      @user_my_searches = @users_searches[@email]
+    else
+      @user_my_searches = []
+    end
   end
 
   def call
