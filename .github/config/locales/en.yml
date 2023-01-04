@@ -1,0 +1,42 @@
+en:
+  make:  "make"
+  model: "model"
+  year_from: "year from"
+  year_to: "year to"
+  price_from: "price from"
+  price_to: "price to"
+  price: "price"
+  direction: "asc"
+  welcome: 'Please choose language (en | ua) / Виберіть мову (en | ua): '
+  menu_start: 'Please choose necessary action from menu: '
+  help: 'Help: Please choose one of the menu items by entering 1, 2, 3 or 4 for the corresponding actions'
+  menu_head1: 'Action'
+  menu_head2: 'Please enter'
+  menu_title: 'M E N U'
+  menu_items_in: [{'Search a car':1}, {'Show all cars':2}, {'Help':3}, {'Exit':4},
+               {'Sign in':5}, {'Sign up':6}]
+  menu_items_out: [{'Search a car':1}, {'Show all cars':2}, {'Help':3}, {'Exit':4},
+               {'Sign out':5}, {'My searches':6}]
+  exit: Thank you! See you soon!
+  invitation: "Please select search rules."
+  option_request: "Please choose an indicator for search -"
+  sorting_request: "sort option (date_added|price)"
+  direction_request: "sort direction(desc|asc)"
+  email_request: 'Please enter your email: '
+  password_request: 'Please enter your password: '
+  email: email
+  password: password
+  email_error: 'Please enter valid email!'
+  password_error: 'Please enter valid password - at least 1 capital letter, at least 2 special characters,
+                   should have at least 8 symbols and no more than 20 symbols'
+  unique_error: 'This email already signed up. Please sign in!'
+  signup_error: 'Please try again!'
+  signin_error: 'Please try again!'
+  exit_for_user: 'See you later!'
+  zero_searches: 'You do not have searches yet!'
+  password_mismatch: 'Your email or password do not match. Please try again!'
+  email_mismatch: 'This email is not yet registered. Please register!'
+  hello: 'Hello, '
+  SEARCH_RESULTS: "SEARCH RESULTS"
+  INDEX: "Index"
+  VALUE: "Value"

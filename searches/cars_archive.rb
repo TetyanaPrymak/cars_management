@@ -4,8 +4,6 @@ require_relative '../user_lang'
 require_relative '../yaml_load'
 
 class CarsArchive
-  attr_accessor :search, :searches_archive, :cars_total
-
   def initialize(search, searches_archive, cars_total)
     @search = search
     @searches_archive = searches_archive
