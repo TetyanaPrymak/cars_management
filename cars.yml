@@ -119,3 +119,11 @@
   :price: 27766
   :description: PVC
   :date_added: 04/01/23
+- :id: 5ceb70f8-c271-42b9-bb75-a01e2893a02e
+  :make: Lincoln
+  :model: Beetle
+  :year: 2021
+  :odometer: 64666
+  :price: 11850
+  :description: Faux Vinyl
+  :date_added: 04/01/23

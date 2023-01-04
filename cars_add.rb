@@ -2,7 +2,6 @@
 
 require 'yaml'
 require 'ffaker'
-require 'faker'
 require 'securerandom'
 require_relative 'yaml_load'
 
