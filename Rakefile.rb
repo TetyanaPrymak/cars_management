@@ -15,12 +15,10 @@ namespace :cars do # rake cars:delete_cars
   task :add_cars do
     cars_db = YamlLoad.new(CARS_PATH).data || []
     cars_number = ENV['cars_number'].nil? ? 1 : ENV['cars_number'].to_i
-    i = 1
-    while i <= cars_number
+    cars_number.times do
       new_car = CarsAdd.new.to_hash
       cars_db.push(new_car)
       File.open(CARS_PATH, 'w') { |f| YAML.dump(cars_db, f) }
-      i += 1
     end
   end
 end

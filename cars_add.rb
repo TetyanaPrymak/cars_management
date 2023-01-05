@@ -6,7 +6,6 @@ require 'securerandom'
 require_relative 'yaml_load'
 
 class CarsAdd
-  attr_accessor :new_car
 
   def initialize
     @id = SecureRandom.uuid

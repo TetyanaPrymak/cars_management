@@ -4,7 +4,7 @@ require 'yaml'
 require_relative 'yaml_load'
 
 class CarsDelete
-  attr_accessor :cars_db
+  attr_reader :cars_db
 
   CARS_PATH = 'cars.yml'
 
@@ -14,6 +14,6 @@ class CarsDelete
 
   def delete_cars
     cars_db.clear
-    File.open(CARS_PATH, 'w'){ |f| YAML.dump(cars_db,f) }
+    File.open(CARS_PATH, 'w') { |f| YAML.dump(cars_db,f) }
   end
 end
