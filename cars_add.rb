@@ -6,7 +6,6 @@ require 'securerandom'
 require_relative 'yaml_load'
 
 class CarsAdd
-
   def initialize
     @id = SecureRandom.uuid
     @make = FFaker::Vehicle.make
