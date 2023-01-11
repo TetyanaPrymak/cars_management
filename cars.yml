@@ -111,19 +111,11 @@
   price: 10650
   description: Official car
   date_added: 1/10/21
-- :id: f3a9120b-1f5a-46a9-b4f0-d36a858a935f
-  :make: Acura
-  :model: CR-V
-  :year: 2023
-  :odometer: 49523
-  :price: 27766
-  :description: PVC
-  :date_added: 04/01/23
-- :id: 5ceb70f8-c271-42b9-bb75-a01e2893a02e
-  :make: Lincoln
-  :model: Beetle
-  :year: 2021
-  :odometer: 64666
-  :price: 11850
-  :description: Faux Vinyl
-  :date_added: 04/01/23
+- id: 2023c4fd-4700-4bab-a2a0-12ebd45e95aa
+  make: BMW
+  model: SClass
+  year: 2022
+  odometer: 12345
+  price: 20000
+  description: Super!
+  date_added: 11/01/23

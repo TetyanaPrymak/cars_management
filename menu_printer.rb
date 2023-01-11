@@ -8,11 +8,12 @@ require_relative 'message_printer'
 
 class MenuPrinter
   include MessagePrinter
-  attr_accessor :menu_item, :menu_items, :user_signin, :signed, :user_menu
+  attr_accessor :menu_item, :menu_items, :user_signin, :signed, :user_menu, :admin
 
   def initialize
     @signed = signed
     @menu_items = menu_items
+    @admin = admin
   end
 
   def menu_out
@@ -26,8 +27,12 @@ class MenuPrinter
     @menu_item = user_menu.menu_item
   end
 
-  def call(signed)
-    @menu_items = signed ? :menu_items_out : :menu_items_in
+  def call(signed, admin)
+    if admin
+      @menu_items = :admin_menu_items
+    else
+      @menu_items = signed ? :menu_items_out : :menu_items_in
+    end
     menu_table_printer = PrepareConsoleOutput.new(
       I18n.t(@menu_items), I18n.t(:menu_title),
       [

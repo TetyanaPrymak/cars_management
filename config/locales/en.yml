@@ -3,9 +3,12 @@ en:
   model: "model"
   year_from: "year from"
   year_to: "year to"
+  year: "year"
   price_from: "price from"
   price_to: "price to"
   price: "price"
+  odometer: 'odometer'
+  description: 'description'
   direction: "asc"
   welcome: 'Please choose language (en | ua) / Виберіть мову (en | ua): '
   menu_start: 'Please choose necessary action from menu: '
@@ -17,6 +20,8 @@ en:
                {'Sign in':5}, {'Sign up':6}]
   menu_items_out: [{'Search a car':1}, {'Show all cars':2}, {'Help':3}, {'Exit':4},
                {'Sign out':5}, {'My searches':6}]
+  admin_menu_items: [{'Create an Advertisement': 1}, {'Update an Advertisement': 2}, {'Delete an Advertisement': 3},
+               {'Log out': 4}]
   exit: Thank you! See you soon!
   invitation: "Please select search rules."
   option_request: "Please choose an indicator for search -"
@@ -24,6 +29,29 @@ en:
   direction_request: "sort direction(desc|asc)"
   email_request: 'Please enter your email: '
   password_request: 'Please enter your password: '
+  ads_request: 'Please enter elements for advertisement'
+  ads_make: 'Please enter car make'
+  ads_model: 'Please enter car model'
+  ads_year: 'Please enter year of car production'
+  ads_odometer: 'Please enter odometer value of the car'
+  ads_price: 'Please enter car price'
+  ads_description: 'Please enter description of the car'
+  element_error: 'Problem with value for element: '
+  make_error: 'Please enter correct car make value between 3 and 50 English characters. This element is required'
+  model_error: 'Please enter correct car model value between 3 and 50 English characters. This element is required'
+  year_error: 'Please enter correct number value between 1900 and current year. This element is required'
+  odometer_error: 'Please enter positive number value for odometer. This element is required'
+  price_error: 'Please enter positive number value for car price. This element is required'
+  description_error: 'Please enter valid description up to 5000 English characters. This element is optional'
+  ads_success: 'You have successfully created the ad with id: '
+  ads_error: 'Please try again with correct values for ads elements!'
+  ads_delete: 'Please enter id of advertisement to delete'
+  delete_error: 'No ad found with this id. Please try again'
+  delete_success: 'You have successfully deleted the ad with id: '
+  ads_update: 'Please enter id of advertisement to update'
+  ads_element_update: 'Please enter a new value for ads element to update or press enter to leave the element unchanged'
+  update_error: 'The ad was not updated due to errors in the new values of elements. Please try again'
+  update_success: 'You have successfully updated the ad with id: '
   email: email
   password: password
   email_error: 'Please enter valid email!'

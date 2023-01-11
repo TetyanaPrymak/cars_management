@@ -6,7 +6,7 @@ require_relative 'password_validator'
 
 class UserSignin
   include MessagePrinter
-  attr_accessor :email, :password, :signed
+  attr_accessor :email, :password, :signed, :admin
 
   def initialize
     @email_validator = EmailValidator.new
@@ -52,11 +52,13 @@ class UserSignin
   def match_email_password
     if @password_validator.password_matches?(@email, @password)
       @signed = true
+      @admin = @password_validator.admin || false
       puts I18n.t(:hello)
       puts "#{@email}!"
     else
       print_message(:password_mismatch)
       @signed = false
+      @admin = false
     end
   end
 end

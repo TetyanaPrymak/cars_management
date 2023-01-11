@@ -11,13 +11,14 @@ require_relative 'menu_printer'
 
 class Menu
   include MessagePrinter
-  attr_accessor :menu_item, :menu_items, :user_signin, :signed, :email
+  attr_accessor :menu_item, :menu_items, :user_signin, :signed, :email, :admin
 
   MENUINPUTS = [1, 2, 3, 4, 5, 6].freeze
 
   def initialize
     @signed = false
     @menu_items = :menu_items_in
+    @admin = false
   end
 
   def call
@@ -45,10 +46,12 @@ class Menu
       @user_signin = UserSignin.new
       @user_signin.call
       @signed = @user_signin.signed
+      @admin = @user_signin.admin
       @email = @user_signin.email
     else
       print_message(:exit_for_user)
       @signed = false
+      @admin = false
     end
   end
 
