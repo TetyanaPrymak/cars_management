@@ -5,3 +5,4 @@ In GitBash type git clone, and then paste the URL you copied earlier, example:
 In project directory `rvm install .`
 # 3. Running the project
 `ruby index.rb`
+# 4. If you're an admin, you have special menu for the ads creation, update and delete.
