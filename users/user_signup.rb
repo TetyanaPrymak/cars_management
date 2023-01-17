@@ -6,7 +6,7 @@ require_relative 'password_validator'
 
 class UserSignup
   include MessagePrinter
-  attr_accessor :email, :password, :signed
+  attr_accessor :email, :password, :signed, :admin
 
   USERS_PATH = 'users/users.yml'
 
@@ -64,10 +64,11 @@ class UserSignup
       @signed = false
     else
       @signed = true
+      @admin = false
       print_message(:hello)
       puts "#{@email}!"
       password_bycript = BCrypt::Password.create(@password)
-      user = { email: @email, password: password_bycript.to_s }
+      user = { email: @email, password: password_bycript.to_s, admin: false }
       @users_db.push(user)
       File.open(USERS_PATH, 'w') { |file| file.write(@users_db.to_yaml) }
     end

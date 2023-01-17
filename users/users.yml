@@ -1,10 +1,19 @@
 ---
 - :email: ooooo@oo.oo
   :password: "$2a$12$49cl6EjUU/JtgBtiPBG/E.G1Z11B1/IVkTg.RJD8Jj233457nOdm6"
-  :admin: fslse
+  :admin: false
 - :email: popopo@po.po
   :password: "$2a$12$t3FnyD8E4GwkD.eL5WZl7.c1n98laS.ZacqpGaNYhFlYJ8YcHR08i"
   :admin: true
 - :email: qqqqq@qq.qq
   :password: "$2a$12$gVl.5LE.zKSr15GIT5olwOlHt4KX7eBqGLn0DSb8fT59ZSfEe9ziS"
-  :admin: fslse
+  :admin: false
+- :email: rrrrr@rr.rr
+  :password: "$2a$12$JjQ6Zr42wGKDsNqkSzo1De3Ty6eBYwRo3kmXivwnYxOt8pRuG6H1m"
+  :admin: false
+- :email: yyyyy@yy.yy
+  :password: "$2a$12$PA4p3rpgPn2iebjaOci29OPrw73vBDpGaPk4G1snCN9CWDqkXkUDq"
+  :admin: false
+- :email: iiiii@ii.ii
+  :password: "$2a$12$nCANSFbG2ipt9uOMcfBqaO/P0rfQyCIZ./q8Cq6QmrPDR9d7GAQF."
+  :admin: false
