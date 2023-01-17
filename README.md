@@ -6,3 +6,4 @@ In project directory `rvm install .`
 # 3. Running the project
 `ruby index.rb`
 # 4. If you're an admin, you have special menu for the ads creation, update and delete.
+To try admin functionality, sign in with login popopo@po.po and $$$$TTTT password.

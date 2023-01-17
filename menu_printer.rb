@@ -16,17 +16,6 @@ class MenuPrinter
     @admin = admin
   end
 
-  def menu_out
-    @signed = false
-    @menu_items = :menu_items_out
-    print_message(:exit)
-    print_message(:menu_start)
-    user_menu = Menu.new
-    user_menu.menu_table_in_out
-    user_menu.call
-    @menu_item = user_menu.menu_item
-  end
-
   def call(signed, admin)
     if admin
       @menu_items = :admin_menu_items
