@@ -5,7 +5,7 @@ require_relative '../yaml_load'
 
 class PasswordValidator
   include MessagePrinter
-  attr_accessor :users_db
+  attr_accessor :users_db, :admin
 
   USERS_PATH = 'users/users.yml'
 
@@ -24,8 +24,11 @@ class PasswordValidator
     else
       password_db = users_db[found][:password]
       if BCrypt::Password.new(password_db) == password
+        @admin = users_db[found][:admin]
+        puts @admin
         return true
       else
+        @admin = false
         return false
       end
     end
