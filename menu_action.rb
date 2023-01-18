@@ -7,7 +7,7 @@ require_relative 'menu'
 require_relative 'admin_menu'
 
 class MenuAction
-  attr_accessor :menu_item, :signed, :user_signin, :user_menu, :menu_items, :admin_menu_item, :admin
+  attr_accessor :menu_item, :signed, :user_menu, :admin_menu, :admin_menu_item, :admin
 
   def initialize
     @menu_item = 0

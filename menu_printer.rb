@@ -8,7 +8,7 @@ require_relative 'message_printer'
 
 class MenuPrinter
   include MessagePrinter
-  attr_accessor :menu_item, :menu_items, :user_signin, :signed, :user_menu, :admin
+  attr_accessor :menu_items, :signed, :admin
 
   def initialize
     @signed = signed

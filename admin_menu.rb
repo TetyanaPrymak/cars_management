@@ -41,18 +41,4 @@ class AdminMenu
       MenuAction.new.call
     else @menu_item = 0 end
   end
-
-  def menu_in_out
-    if @signed == false
-      @user_signin = UserSignin.new
-      @user_signin.call
-      @signed = @user_signin.signed
-      @admin = @user_signin.admin
-      @email = @user_signin.email
-    else
-      print_message(:exit_for_user)
-      @signed = false
-      @admin = false
-    end
-  end
 end
